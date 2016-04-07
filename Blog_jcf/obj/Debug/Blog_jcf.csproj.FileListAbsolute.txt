@@ -80,3 +80,8 @@ c:\users\frost\documents\visual studio 2015\Projects\Blog_jcf\Blog_jcf\bin\Micro
 c:\users\frost\documents\visual studio 2015\Projects\Blog_jcf\Blog_jcf\obj\Debug\Blog_jcf.csprojResolveAssemblyReference.cache
 c:\users\frost\documents\visual studio 2015\Projects\Blog_jcf\Blog_jcf\obj\Debug\Blog_jcf.dll
 c:\users\frost\documents\visual studio 2015\Projects\Blog_jcf\Blog_jcf\obj\Debug\Blog_jcf.pdb
+c:\Users\Frost\Documents\Visual Studio 2015\Projects\Blog_jcf\Blog_jcf\bin\SendGrid.dll
+c:\Users\Frost\Documents\Visual Studio 2015\Projects\Blog_jcf\Blog_jcf\bin\SendGrid.SmtpApi.dll
+c:\Users\Frost\Documents\Visual Studio 2015\Projects\Blog_jcf\Blog_jcf\bin\SendGridMail.dll
+c:\Users\Frost\Documents\Visual Studio 2015\Projects\Blog_jcf\Blog_jcf\bin\System.Net.Http.Formatting.dll
+c:\Users\Frost\Documents\Visual Studio 2015\Projects\Blog_jcf\Blog_jcf\bin\System.Net.Http.Formatting.xml

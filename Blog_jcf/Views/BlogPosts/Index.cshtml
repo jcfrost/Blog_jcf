@@ -77,12 +77,12 @@
         <div class="col-md-8">
 
             <h1 class="page-header">
-                My BLOG
-                <small>A work in-progress</small>
+                My BLOG<br />
+                <small>Thoughts/Ideas/Accomplishments - as best as I can describe them...</small>
             </h1>
             @foreach (var blogPost in Model)
             {
-            <!-- First Blog Post -->
+            <!-- Display each Blog Post -->
             <h2>
                 <a href="@Url.Action("Details",new {slug = blogPost.Slug })"> @blogPost.Title</a>
             </h2>
@@ -90,6 +90,10 @@
                 by <a href="index.php">James Frost</a>
             </p>
             <p><span class="glyphicon glyphicon-time"></span> Posted on @blogPost.Created</p>
+                if (blogPost.Updated != null)
+                {
+                <p ><span class="glyphicon glyphicon-time"></span> Last update on @blogPost.Updated</p>
+            }
             <hr>
             <img class="img-responsive" src="http://placehold.it/900x300" alt="">
             <hr>

@@ -1,17 +1,88 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@*@{
+        ViewBag.Title = "Contact";
+    }
+    <h2>@ViewBag.Title.</h2>
+    <h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+    <address>
+        One Microsoft Way<br />
+        Redmond, WA 98052-6399<br />
+        <abbr title="Phone">P:</abbr>
+        425.555.0100
+    </address>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    <address>
+        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    </address>*@
+
+<section id="contact">
+
+    <div class="container">
+
+        <h1 class="section-title scrollimation scale-in">Keep in <span>Touch</span> with me</h1>
+
+        <div class="row">
+
+            <div class="col-sm-5 contact-info scrollimation fade-right">
+
+                <p style="padding:10px">I have a Bachelor's degree in Computer Engineering from Clemson University and a Master's degree in Industrial Technology from North Carolina A&T State University. After a many years as a manufacturing engineer and then as a technical sales engineer, I am rebranding myself for a new career as a software developer.</p><!--added "style=..."-->
+
+                <address style="padding:10px">
+                    <!--added "style=..."-->
+                    James Frost<br>
+                    <!--street address-->
+                    Greensboro, NC (North Carolina)<br>
+                    <!--phone number-->
+                </address>
+
+                <!--**Remove Social Links
+                <ul class="socials">
+                    <li><a href="#fakelink"><i class="icon-twitter"></i></a></li>
+                    <li><a href="#fakelink"><i class="icon-facebook"></i></a></li>
+                    <li><a href="#fakelink"><i class="icon-dribbble"></i></a></li>
+                    <li><a href="#fakelink"><i class="icon-google-plus"></i></a></li>
+                </ul>
+                **-->
+            </div>
+
+            <!--=== Contact Form ===-->
+            @*<form id="contact-form" class="col-sm-7 scrollimation fade-left" action="contact.php" method="post" novalidate>*@
+
+            @Html.BeginForm("Contact", "Home", FormMethod.Post){
+            <div class="form-group">
+                <label class="control-label" for="contact-name">Name</label>
+                <div class="controls">
+                    <i class="icon-user"></i>
+                    <input id="contact-name" name="contactName" placeholder="My name is..." class="form-control input-lg requiredField" type="text" data-error-empty="Please enter your name" style="margin-bottom:25px">
+                </div>
+            </div><!-- End name input -->
+
+            <div class="form-group">
+                <label class="control-label" for="contact-mail">Email</label>
+                <div class=" controls">
+                    <i class="icon-envelope"></i>
+                    <input id="contact-mail" name="email" placeholder="Please respond at..." class="form-control input-lg requiredField" type="email" data-error-empty="Please enter your email" data-error-invalid="Invalid email address" style="margin-bottom:25px">
+                </div>
+            </div><!-- End email input -->
+
+            <div class="form-group">
+                <label class="control-label" for="contact-message">Message</label>
+                <div class="controls">
+                    <i class="icon-comment"></i>
+                    <textarea id="contact-message" name="comments" placeholder="I wanna talk about..." class="form-control input-lg requiredField" rows="4" data-error-empty="Please enter your message" style="margin-bottom:25px"></textarea>
+                </div>
+            </div><!-- End textarea -->
+
+            <p><button name="submit" type="submit" class="btn btn-theme btn-lg" data-error-message="Error!" data-sending-message="Sending..." data-ok-message="Message Sent"><i class="icon-location-arrow"></i>Send Message</button></p>
+            <input type="hidden" name="submitted" id="submitted" value="true" />
+            }
+
+
+            @*</form>*@<!-- End contact-form -->
+
+        </div><!-- End row -->
+
+    </div><!-- End container -->
+
+</section><!-- End contact section -->

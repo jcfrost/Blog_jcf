@@ -35,11 +35,11 @@ namespace Blog_jcf.Controllers
         // GET: BlogPosts/Details/5
         public ActionResult Details(string slug)
         {
-            if (String.IsNullOrWhiteSpace(Slug))
+            if (String.IsNullOrWhiteSpace(slug))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BlogPost blogPost = db.Posts.FirstOrDefault(p => p.Slug == Slug);
+            BlogPost blogPost = db.Posts.FirstOrDefault(p => p.Slug == slug);
             if (blogPost == null)
             {
                 return HttpNotFound();
@@ -104,16 +104,16 @@ namespace Blog_jcf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Slug,Body,MediaURL,Published")] BlogPost blogPost)
+        public ActionResult Edit([Bind(Include = "Id,Title,Body,MediaURL,Published")] BlogPost blogPost)
         {
             if (ModelState.IsValid)
             {
                 blogPost.Updated = System.DateTimeOffset.Now;
                 db.Posts.Attach(blogPost);
-                db.Entry(blogPost).Property("Title").IsModified = true;
+                //db.Entry(blogPost).Property("Title").IsModified = true;
                 db.Entry(blogPost).Property("Body").IsModified = true;
                 db.Entry(blogPost).Property("MediaURL").IsModified = true;
-                db.Entry(blogPost).Property("Slug").IsModified = true;
+                //db.Entry(blogPost).Property("Slug").IsModified = true;
                 db.Entry(blogPost).Property("Updated").IsModified = true;
 
                 //db.Entry(blogPost).State = EntityState.Modified;

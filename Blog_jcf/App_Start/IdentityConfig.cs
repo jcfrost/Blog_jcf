@@ -11,6 +11,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Blog_jcf.Models;
+using System.Configuration;
+using SendGrid;
+using System.Net.Mail;
 
 namespace Blog_jcf
 {
@@ -18,8 +21,22 @@ namespace Blog_jcf
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            // Plug in your email service here to send an email
+            var apiKey = ConfigurationManager.AppSettings["SendGridAPIKey"];
+            var from = ConfigurationManager.AppSettings["ContactEmail"];
+
+            SendGridMessage myMessage = new SendGridMessage();
+            myMessage.AddTo(message.Destination);
+            myMessage.From = new MailAddress(from);
+            myMessage.Subject = message.Subject;
+            myMessage.Html = message.Body;
+
+            // Create a Web transport, using API Key
+            var transportWeb = new Web(ConfigurationManager.AppSettings["SendGridAPIKey"]);
+            // Send the email.
+            transportWeb.DeliverAsync(myMessage);
+
+            return Task.FromResult(0); //delivers a 200 message if successful
         }
     }
 
