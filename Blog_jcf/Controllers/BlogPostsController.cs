@@ -26,6 +26,7 @@ namespace Blog_jcf.Controllers
             return View(posts); //return View(db.Posts.ToList());
         }
 
+        [Authorize (Roles = "Admin")]
         public ActionResult Admin()
         {
             var posts = db.Posts.ToList();
@@ -33,6 +34,7 @@ namespace Blog_jcf.Controllers
         }
 
         // GET: BlogPosts/Details/5
+        [Authorize (Roles = "Admin")]
         public ActionResult Details(string slug)
         {
             if (String.IsNullOrWhiteSpace(slug))
@@ -48,6 +50,7 @@ namespace Blog_jcf.Controllers
         }
 
         // GET: BlogPosts/Create
+        [Authorize (Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -58,6 +61,7 @@ namespace Blog_jcf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Id,Title,Slug,Body,MediaURL,Published")] BlogPost blogPost)
         {
             if (ModelState.IsValid)
@@ -85,6 +89,7 @@ namespace Blog_jcf.Controllers
         }
 
         // GET: BlogPosts/Edit/5
+        [Authorize (Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -104,6 +109,7 @@ namespace Blog_jcf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,Title,Body,MediaURL,Published")] BlogPost blogPost)
         {
             if (ModelState.IsValid)
@@ -124,6 +130,7 @@ namespace Blog_jcf.Controllers
         }
 
         // GET: BlogPosts/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -141,6 +148,7 @@ namespace Blog_jcf.Controllers
         // POST: BlogPosts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             BlogPost blogPost = db.Posts.Find(id);

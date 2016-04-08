@@ -19,24 +19,34 @@ namespace Blog_jcf
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email
             var apiKey = ConfigurationManager.AppSettings["SendGridAPIKey"];
             var from = ConfigurationManager.AppSettings["ContactEmail"];
 
             SendGridMessage myMessage = new SendGridMessage();
-            myMessage.AddTo(message.Destination);
+            myMessage.AddTo(from);
             myMessage.From = new MailAddress(from);
             myMessage.Subject = message.Subject;
             myMessage.Html = message.Body;
 
             // Create a Web transport, using API Key
-            var transportWeb = new Web(ConfigurationManager.AppSettings["SendGridAPIKey"]);
+            var transportWeb = new Web(apiKey);
             // Send the email.
-            transportWeb.DeliverAsync(myMessage);
+            try
+            {
+                await transportWeb.DeliverAsync(myMessage);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                await Task.FromResult(0);
+            }
+           
+            //error message
 
-            return Task.FromResult(0); //delivers a 200 message if successful
+            //return Task.FromResult(0); //delivers a 200 message if successful
         }
     }
 
