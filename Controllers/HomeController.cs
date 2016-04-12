@@ -16,6 +16,10 @@ namespace Blog_jcf.Controllers
         {
             return View();
         }
+        public ActionResult ThankYou()
+        {
+            return View();
+        }
         //public ActionResult Abc()
         //{
         //    ViewBag.Pqr = "This is the New Page!";
@@ -27,7 +31,7 @@ namespace Blog_jcf.Controllers
         //    return View();
         //}
 
-      
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -35,7 +39,6 @@ namespace Blog_jcf.Controllers
             return View();
         }
 
-        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -54,8 +57,10 @@ namespace Blog_jcf.Controllers
             msg.Subject = "Contact From Portfolio";
             msg.Body = "Email from: " + contact.Name + " (" + contact.Email + ") <br/>" + "Message: <br/>" + contact.Message;
             await svc.SendAsync(msg);
-
-            return View(contact);
+            //How would I return this to a "thank you for submitting" page - DONE
+            return View("ThankYou");
         }
+
+
     }
 }
