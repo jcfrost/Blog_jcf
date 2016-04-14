@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/designr-theme-orange2.css" rel="stylesheet" />
+    <link href="~/Content/flexslider.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body data-spy="scroll" data-target="#main-nav" data-offset="200"><!-- was just "<body>" - add'l code came from Portfolio template-->
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("My BLOG Page", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Blog Entries", "Index", "BlogPosts")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                    <li>@Html.ActionLink("Create", "Create", "BlogPosts")</li>
+                    <li>@Html.ActionLink("Admin", "Admin", "BlogPosts")</li>
+                    }
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>*@
+    
+    <!-- ==============================================
+    MAIN NAV
+    =============================================== -->
+    <div id="main-nav" class="navbar navbar-fixed-top scrolled">
+        <div class="container">
+
+            <div class="navbar-header">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#site-nav">
+                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+
+                <!-- ======= LOGO ========-->
+                <a class="navbar-brand scrollto" href="#home">JAMES FROST<br><span>Software Developer</span></a>
+                <!-- <a class="navbar-brand scrollto ir-logo" href="#">JAMES FROST<br><span>UI Designer</span></a> -->
+
+            </div>
+
+            <div id="site-nav" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li> @*class="sr-only">*@
+                        @Html.ActionLink("Blog Entries", "Index", "BlogPosts")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Contact", "Contact", "Home")
+                    </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Create", "Create", "BlogPosts")</li>
+                        <li>@Html.ActionLink("Admin", "Admin", "BlogPosts")</li>
+                    }
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+
+
+            </div><!--End navbar-collapse -->
+
+        </div><!--End container -->
+
+    </div><!--End main-nav -->
+
+
+
+    <div class="container body-content">
+        @RenderBody()
+        
+    </div>
+
+    <!-- ==============================================
+    FOOTER
+    =============================================== -->
+    <footer id="main-footer">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-sm-6 left-col">
+                    <h1 class="small-logo">JAMES FROST<br><span>Software Developer</span></h1>
+                    <ul class="footer-nav">
+                        <li><a class="scrollto" href="#home">Home</a></li>
+                        @*<li><a class="scrollto" href="#services">Services</a></li>*@
+                        <li><a class="scrollto" href="http://www.jfrost.azurewebsites.net">Portfolio Web Page</a></li>
+                        @*<li><a class="scrollto" href="#contact">Contact</a></li>*@
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    <p>&copy;Copyright 2013 / All Rights Reserved</p>
+                </div>
+
+                <div class="col-sm-6 right-col">
+                    <h2>Who Am I?</h2>
+                    <p>I am learning to be a master of the digital world - it is a work in-progress. <br />Visit again soon to check out my progress!</p>
+                </div>
+
+            </div><!-- End row -->
+
+        </div><!-- End container -->
+
+    </footer><!-- End footer -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.scrollto.js"></script>
+    <script src="~/Scripts/jquery.flexslider.min.js"></script>
+    <script src="~/Scripts/twitterFetcher_v10_min.js"></script>
+    <script src="~/Scripts/jquery.masonry.min.js"></script>
+    <script src="~/Scripts/waypoints.min.js"></script>
+    <script src="~/Scripts/jquery.easypiechart.js"></script>
+    <script src="~/Scripts/jquery.backstretch.min.js"></script>
+    <script src="~/Scripts/contact.js"></script>
+    <script src="~/Scripts/designr_1.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

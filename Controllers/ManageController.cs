@@ -11,6 +11,7 @@ using Blog_jcf.Models;
 namespace Blog_jcf.Controllers
 {
     [Authorize]
+    [RequireHttps]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

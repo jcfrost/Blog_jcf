@@ -7,26 +7,70 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Blog_jcf.Models;
+using PagedList;
+using PagedList.Mvc;
+using Microsoft.AspNet.Identity;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Drawing;
 
 namespace Blog_jcf.Controllers
 {
+    [RequireHttps]
     public class BlogPostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private object systemDateTimeOffset;
-        private object post;
-        private object blogpost;
 
-        public string Slug { get; private set; }
+       
 
         // GET: BlogPosts
-        public ActionResult Index()
+
+        public static class ImageUploadValidator
         {
-            var posts = db.Posts.ToList();
+            public static bool IsWebFriendlyImage(HttpPostedFileBase file)
+            {
+                // check for actual object
+                if (file == null)
+                    return false;
+
+                //check size - file must be less than 2 MB and greater than 1 KB
+                if (file.ContentLength > 2 * 1024 * 1024 || file.ContentLength < 1024)
+                    return false;
+
+                try
+                {
+                    using (var img = Image.FromStream(file.InputStream))
+                    {
+                        return ImageFormat.Jpeg.Equals(img.RawFormat) ||
+                               ImageFormat.Png.Equals(img.RawFormat) ||
+                               ImageFormat.Gif.Equals(img.RawFormat);
+                    }
+                }
+
+
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+       
+        public ActionResult Index(int? page, string query)
+        {
+            int pageSize = 3; // the number of posts you want to display per page
+            int pageNumber = (page ?? 1);
+            ViewBag.Query = query;
+            var qposts = db.Posts.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                qposts = qposts.Where(p => p.Title.Contains(query) || p.Body.Contains(query) || p.Comments.Any(c => c.Body.Contains(query) || c.Author.DisplayName.Contains(query)));
+            }
+       
+            var posts = qposts.OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize); // code added to replace this code: "var posts = db.Posts.ToList();"
             return View(posts); //return View(db.Posts.ToList());
         }
 
-        [Authorize (Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Admin()
         {
             var posts = db.Posts.ToList();
@@ -34,7 +78,7 @@ namespace Blog_jcf.Controllers
         }
 
         // GET: BlogPosts/Details/5
-        [Authorize (Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(string slug)
         {
             if (String.IsNullOrWhiteSpace(slug))
@@ -50,7 +94,7 @@ namespace Blog_jcf.Controllers
         }
 
         // GET: BlogPosts/Create
-        [Authorize (Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -62,12 +106,21 @@ namespace Blog_jcf.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "Id,Title,Slug,Body,MediaURL,Published")] BlogPost blogPost)
+        public ActionResult Create([Bind(Include = "Id,Title,Slug,Body,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
+                //restricting the valid file formats to images only
+                if (ImageUploadValidator.IsWebFriendlyImage(image))
+                {
+                    var fileName = Path.GetFileName(image.FileName);
+                    image.SaveAs(Path.Combine(Server.MapPath("~/img_uploads/"), fileName));
+                    blogPost.MediaURL = "~/img_uploads/" + fileName;
+                }
+
+
                 var Slug = StringUtilities.URLFriendly(blogPost.Title);
-                if(String.IsNullOrWhiteSpace(Slug))
+                if (String.IsNullOrWhiteSpace(Slug))
                 {
                     ModelState.AddModelError("Title", "Invalid title.");
                     return View(blogPost);
@@ -89,7 +142,7 @@ namespace Blog_jcf.Controllers
         }
 
         // GET: BlogPosts/Edit/5
-        [Authorize (Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -110,10 +163,19 @@ namespace Blog_jcf.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit([Bind(Include = "Id,Title,Body,MediaURL,Published")] BlogPost blogPost)
+        public ActionResult Edit([Bind(Include = "Id,Title,Body,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
+                //restricting the valid file formats to images only
+                if (ImageUploadValidator.IsWebFriendlyImage(image))
+                {
+                    var fileName = Path.GetFileName(image.FileName);
+                    image.SaveAs(Path.Combine(Server.MapPath("~/img_uploads/"), fileName));
+                    blogPost.MediaURL = "!/img_uploads/" + fileName;
+                }
+
+
                 blogPost.Updated = System.DateTimeOffset.Now;
                 db.Posts.Attach(blogPost);
                 //db.Entry(blogPost).Property("Title").IsModified = true;
@@ -156,6 +218,24 @@ namespace Blog_jcf.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //[Authorize]
+        public ActionResult CreateComment(Comment comment)
+        {
+            if (ModelState.IsValid)
+            {
+                comment.AuthorId = User.Identity.GetUserId();
+                comment.Created = System.DateTimeOffset.Now;
+                comment.Updated = System.DateTimeOffset.Now;
+                db.Comments.Add(comment);
+                db.SaveChanges();
+
+            }
+            var blog = db.Posts.Find(comment.PostId);
+            return RedirectToAction("Details", "BlogPosts", new { slug = blog.Slug }); //need to send in a SLUG
+        }
+
 
         protected override void Dispose(bool disposing)
         {
@@ -167,3 +247,4 @@ namespace Blog_jcf.Controllers
         }
     }
 }
+

@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Blog_jcf.Models.BlogPost>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<Blog_jcf.Models.BlogPost>
 
 @{
     ViewBag.Title = "Index";
@@ -95,24 +98,30 @@
                 <p ><span class="glyphicon glyphicon-time"></span> Last update on @blogPost.Updated</p>
             }
             <hr>
-            <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+                if (blogPost.MediaURL != null)
+                {
+                    <img class="img-responsive" src="@Url.Content(blogPost.MediaURL)" alt="">
+                }
             <hr>
             <p>@Html.Raw(blogPost.Body)</p>
-            <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+            @*<a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>*@
+            @*<a class="btn btn-primary" href="#">Add a Comment <span class="glyphicon"></span></a>*@
+            
+            @*@Html.ActionLink("Add Commment", "CreateComment", new { id = item.Id }) |*@
 
             <hr>
             }
 
 
             <!-- Pager -->
-            <ul class="pager">
+            @*<ul class="pager">
                 <li class="previous">
                     <a href="#">← Older</a>
                 </li>
                 <li class="next">
                     <a href="#">Newer →</a>
                 </li>
-            </ul>
+            </ul>*@
 
         </div>
 
@@ -123,18 +132,26 @@
             <div class="well">
                 <h4>Blog Search</h4>
                 <div class="input-group">
-                    <input type="text" class="form-control">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
+
+                    @using (Html.BeginForm("Index", "BlogPosts"))
+                    {
+                       
+                        <input type="text" name="query" />
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    }
+
+                    @*<input type="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>*@
                 </div>
                 <!-- /.input-group -->
             </div>
 
             <!-- Blog Categories Well -->
-            <div class="well">
+            @*<div class="well">
                 <h4>Blog Categories</h4>
                 <div class="row">
                     <div class="col-lg-6">
@@ -173,13 +190,13 @@
                     <!-- /.col-lg-6 -->
                 </div>
                 <!-- /.row -->
-            </div>
+            </div>*@
 
             <!-- Side Widget Well -->
-            <div class="well">
+            @*<div class="well">
                 <h4>Side Widget Well</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
-            </div>
+            </div>*@
 
         </div>
 
@@ -187,6 +204,8 @@
     <!-- /.row -->
 
     <hr>
-
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 
 </div>
+
