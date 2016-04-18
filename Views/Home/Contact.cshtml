@@ -1,34 +1,20 @@
-﻿@*@{
-        ViewBag.Title = "Contact";
-    }
-    <h2>@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
+﻿<link href="~/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/css/designr-theme-orange2.css" rel="stylesheet" />
 
-    <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
-    </address>
-
-    <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-    </address>*@
 
 <section id="contact">
 
     <div class="container">
 
-        <h1 class="section-title scrollimation scale-in" style="margin-top:45px">Keep in <span>Touch</span> with me</h1>
+        <h1 class="section-title scrollimation scale-in" style="margin-top:15px;color:#ff4500">Keep in <span>Touch</span> with me</h1>
 
         <div class="row">
 
             <div class="col-sm-5 contact-info scrollimation fade-right">
 
-                <p style="padding:10px">I have a Bachelor's degree in Computer Engineering from Clemson University and a Master's degree in Industrial Technology from North Carolina A&T State University. After a many years as a manufacturing engineer and then as a technical sales engineer, I am rebranding myself for a new career as a software developer.</p><!--added "style=..."-->
+                <p style="padding:10px;color:#ff4500; border-color:#ff4500; border-style: double">I have a Bachelor's degree in Computer Engineering from Clemson University and a Master's degree in Industrial Technology from North Carolina A&T State University. After a many years as a manufacturing engineer and then as a technical sales engineer, I am rebranding myself for a new career as a software developer.</p><!--added "style=..."-->
 
-                <address style="padding:10px">
+                <address style="padding:10px;color:#ff4500; border-color:#ff4500; border-style: double">
                     <!--added "style=..."-->
                     James Frost<br>
                     <!--street address-->
@@ -49,14 +35,14 @@
             <!--=== Contact Form ===-->
             @*<form id="contact-form" class="col-sm-7 scrollimation fade-left" action="contact.php" method="post" novalidate>*@
             <div class="col-sm-7 scrollimation fade-left">
-                @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
-            {
+                @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { id = "contact-form" }))
+                {
                     @Html.AntiForgeryToken()
                     <div class="form-group">
                         <label class="control-label" for="contact-name">Name</label>
                         <div class="controls">
                             <i class="icon-user"></i>
-                            <input id="contact-name" name="name" placeholder="My name is..." class="form-control input-lg requiredField" type="text" data-error-empty="Please enter your name" style="margin-bottom:25px">
+                            <input id="contact-name" name="name" placeholder="My name is..." class="form-control input-lg requiredField" type="text" data-error-empty="Please enter your name" style="margin-bottom:25px; max-width:652.5px; border-color:#ff4500; border-style: double">
                         </div>
                     </div><!-- End name input -->
 
@@ -64,7 +50,7 @@
                         <label class="control-label" for="contact-mail">Email</label>
                         <div class="controls">
                             <i class="icon-envelope"></i>
-                            <input id="contact-mail" name="email" placeholder="Please respond at..." class="form-control input-lg requiredField" type="email" data-error-empty="Please enter your email" data-error-invalid="Invalid email address" style="margin-bottom:25px">
+                            <input id="contact-mail" name="email" placeholder="Please respond at..." class="form-control input-lg requiredField" type="email" data-error-empty="Please enter your email" data-error-invalid="Invalid email address" style="margin-bottom:25px; max-width:652.5px; border-color:#ff4500; border-style: double">
                         </div>
                     </div><!-- End email input -->
 
@@ -72,11 +58,11 @@
                         <label class="control-label" for="contact-message">Message</label>
                         <div class="controls">
                             <i class="icon-comment"></i>
-                            <textarea id="contact-message" name="message" placeholder="I wanna talk about..." class="form-control input-lg requiredField" rows="4" data-error-empty="Please enter your message" style="margin-bottom:25px"></textarea>
+                            <textarea id="contact-message" name="message" placeholder="I wanna talk about..." class="form-control input-lg requiredField" rows="4" data-error-empty="Please enter your message" style="margin-bottom:25px; max-width:652.5px; border-color:#ff4500; border-style: double"></textarea>
                         </div>
                     </div><!-- End textarea -->
 
-                    <p><button name="submit" type="submit" class="btn btn-theme btn-lg" data-error-message="Error!" data-sending-message="Sending..." data-ok-message="Message Sent"><i class="icon-location-arrow"></i>Send Message</button></p>
+                    <p><button name="submit" type="submit" class="btn btn-theme btn-lg" data-error-message="Error!" data-sending-message="Sending..." data-ok-message="Message Sent!"><i class="icon-location-arrow"></i>Send Message</button></p>
                     <input type="hidden" name="submitted" id="submitted" value="true" />
                 }
 

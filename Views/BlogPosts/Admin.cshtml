@@ -4,11 +4,11 @@
     ViewBag.Title = "Admin";
 }
 
-<h2 style="margin-top:80px">Admin Index</h2>
+<h2 style="margin-top:50px">Admin Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@*<p>
+    @Html.ActionLink("Create New BlogPost", "Create")
+</p>*@
 <table class="table">
     <tr>
         <th>
@@ -29,9 +29,9 @@
         <th>
             @Html.DisplayNameFor(model => model.MediaURL)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Published)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -56,9 +56,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.MediaURL)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Published)
-            </td>
+            </td>*@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { slug = item.Slug }) |

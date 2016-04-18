@@ -25,10 +25,10 @@
             <hr>
 
             <!-- Date/Time -->
-            <p><span class="glyphicon glyphicon-time"></span> Posted on @Model.Created</p>
+            <p><span class="glyphicon glyphicon-time"></span> <small>Posted on @Model.Created</small></p>
             @if (Model.Updated != null)
             {
-            <p><span class="glyphicon glyphicon-time"></span> Last update on @Model.Updated</p>
+            <p><span class="glyphicon glyphicon-time"></span> <small>Last update on @Model.Updated</small></p>
             }
             <hr>
 
@@ -69,15 +69,18 @@
             {
             <!-- Comment -->
             <div class="media">
-                <a class="pull-left" href="#">
+                @*<a class="pull-left" href="#">
                     <img class="media-object" src="http://placehold.it/64x64" alt="">
-                </a>
+                </a>*@
                 <div class="media-body">
                     <h4 class="media-heading">
-                        Start Bootstrap
-                        <small>@com.Created</small>
+                        Comment:
+                        <small>added @com.Created</small>
                     </h4>
-                    @com.Body
+                    <p>@com.Body</p>
+
+                    @Html.ActionLink("Edit Comment", "EditComments", new {id = com.ID }) |
+                    @Html.ActionLink("Delete Comment", "DeleteComments", new { id = com.ID })
                 </div>
             </div>
                 }
@@ -90,7 +93,7 @@
         <div class="col-md-4">
 
             <!-- Blog Search Well -->
-            <div class="well">
+            @*<div class="well">
                 <h4>Blog Search</h4>
                 <div class="input-group">
                     <input type="text" class="form-control">
@@ -100,8 +103,7 @@
                         </button>
                     </span>
                 </div>
-                <!-- /.input-group -->
-            </div>
+            </div>*@
 
             <!-- Blog Categories Well -->
             @*<div class="well">
@@ -171,139 +173,12 @@
 
 
 
-<!-- COMMENT FROM HERE DOWN -->
-@*<div>
-    <h4>BlogPost</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Updated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Updated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Slug)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Slug)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.Body)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MediaURL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MediaURL)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Published)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Published)
-        </dd>
-
-    </dl>
-</div>
-<!--code added start-->
-<div class="form-horizontal">
-    <h4>Comments</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Id)
-    @Html.HiddenFor(model => model.Title)
-
-    @foreach (var comment in Model)
-    {
-        <!-- Display each Comment associated with this BlogPost entry -->
-        
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AuthorId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.AuthorId)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control", id = "Ed", rows = "5" } })
-                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MediaURL, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MediaURL, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MediaURL, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Published)
-                    @Html.ValidationMessageFor(model => model.Published, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    }
-
-    
-</div> <!-- code added end-->
-
-<p>
+@*<p>
     @Html.ActionLink("Add a Comment", "CreateComment")
-    @*<a class="btn btn-primary" href="CreateComment">Add a Comment <span class="glyphicon"></span></a><br />*@
-   @* @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a class="btn btn-primary" href="CreateComment">Add a Comment <span class="glyphicon"></span></a><br />
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>*@
 
-section scripts{
-<script src="~/Scripts/tinymce/tinymce.min.js"></script>
-<script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
-<script type="text/javascript">
-        $(function () {
-            $('#Ed').tinymce({});
-    });
-
-</script>
-}*@

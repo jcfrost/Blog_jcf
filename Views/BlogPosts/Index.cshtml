@@ -77,7 +77,7 @@
     <div class="row">
 
         <!-- Blog Entries Column -->
-        <div class="col-md-8" style="margin-top:80px">
+        <div class="col-md-8" style="margin-top:50px">
 
             <h1 class="page-header">
                 My BLOG<br />
@@ -92,10 +92,10 @@
             <p class="lead">
                 by <a href="index.php">James Frost</a>
             </p>
-            <p><span class="glyphicon glyphicon-time"></span> Posted on @blogPost.Created</p>
+            <p><span class="glyphicon glyphicon-time"></span> <small>Posted on @blogPost.Created</small></p>
                 if (blogPost.Updated != null)
                 {
-                <p ><span class="glyphicon glyphicon-time"></span> Last update on @blogPost.Updated</p>
+                <p ><span class="glyphicon glyphicon-time"></span> <small>Last update on @blogPost.Updated</small></p>
             }
             <hr>
                 if (blogPost.MediaURL != null)

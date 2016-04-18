@@ -5,39 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-    <link href="~/Content/designr-theme-orange2.css" rel="stylesheet" />
-    <link href="~/Content/flexslider.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/designr-theme-orange2.css" rel="stylesheet" />
+    <link href="~/css/flexslider.css" rel="stylesheet" />
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body data-spy="scroll" data-target="#main-nav" data-offset="200"><!-- was just "<body>" - add'l code came from Portfolio template-->
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("My BLOG Page", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Blog Entries", "Index", "BlogPosts")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @if (User.IsInRole("Admin"))
-                    {
-                    <li>@Html.ActionLink("Create", "Create", "BlogPosts")</li>
-                    <li>@Html.ActionLink("Admin", "Admin", "BlogPosts")</li>
-                    }
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>*@
+    
     
     <!-- ==============================================
     MAIN NAV
@@ -106,7 +81,7 @@
                         @*<li><a class="scrollto" href="#contact">Contact</a></li>*@
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     </ul>
-                    <p>&copy;Copyright 2013 / All Rights Reserved</p>
+                    @*<p>&copy;Copyright 2013 / All Rights Reserved</p>*@
                 </div>
 
                 <div class="col-sm-6 right-col">

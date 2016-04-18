@@ -16,21 +16,12 @@ namespace Blog_jcf.Controllers
         {
             return View();
         }
+
         public ActionResult ThankYou()
         {
             return View();
         }
-        //public ActionResult Abc()
-        //{
-        //    ViewBag.Pqr = "This is the New Page!";
-        //    return View();
-        //}
-        //public ActionResult MyInfo1()
-        //{
-        //    ViewBag.MyInfoMessage = "This is about me!";
-        //    return View();
-        //}
-
+        
 
         public ActionResult About()
         {
@@ -58,9 +49,9 @@ namespace Blog_jcf.Controllers
             msg.Body = "Email from: " + contact.Name + " (" + contact.Email + ") <br/>" + "Message: <br/>" + contact.Message;
             await svc.SendAsync(msg);
             //How would I return this to a "thank you for submitting" page - DONE
-            return View("ThankYou");
+            return RedirectToAction("ThankYou");
         }
 
-
+        
     }
 }

@@ -180,7 +180,7 @@ namespace Blog_jcf.Controllers
                 db.Posts.Attach(blogPost);
                 //db.Entry(blogPost).Property("Title").IsModified = true;
                 db.Entry(blogPost).Property("Body").IsModified = true;
-                db.Entry(blogPost).Property("MediaURL").IsModified = true;
+                //db.Entry(blogPost).Property("MediaURL").IsModified = true;
                 //db.Entry(blogPost).Property("Slug").IsModified = true;
                 db.Entry(blogPost).Property("Updated").IsModified = true;
 
@@ -218,6 +218,8 @@ namespace Blog_jcf.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        // POST: BlogPosts/CreateComment
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Authorize]
@@ -227,7 +229,7 @@ namespace Blog_jcf.Controllers
             {
                 comment.AuthorId = User.Identity.GetUserId();
                 comment.Created = System.DateTimeOffset.Now;
-                comment.Updated = System.DateTimeOffset.Now;
+                //comment.Updated = System.DateTimeOffset.Now;
                 db.Comments.Add(comment);
                 db.SaveChanges();
 
@@ -236,6 +238,77 @@ namespace Blog_jcf.Controllers
             return RedirectToAction("Details", "BlogPosts", new { slug = blog.Slug }); //need to send in a SLUG
         }
 
+        // GET: BlogPosts/EditComments
+        [Authorize(Roles = "Admin, Moderator")]
+        public ActionResult EditComments(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Comment comment = db.Comments.Find(id);
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(comment);
+        }
+
+        // POST: BlogPosts/EditComments
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Moderator")]
+        public ActionResult EditComments(Comment comment)
+        {
+            if (ModelState.IsValid)
+            {
+                comment.AuthorId = User.Identity.GetUserId();
+                //comment.Created = System.DateTimeOffset.Now;
+                comment.Updated = System.DateTimeOffset.Now;
+
+                db.Comments.Attach(comment);
+                db.Entry(comment).Property("Body").IsModified = true;
+                db.Entry(comment).Property("AuthorId").IsModified = true;
+                db.Entry(comment).Property("Updated").IsModified = true;
+
+                db.SaveChanges();
+
+            }
+
+            var blog = db.Posts.Find(comment.PostId);
+            return RedirectToAction("Details", "BlogPosts", new { slug = blog.Slug }); //need to send in a SLUG
+        }
+
+        // GET: BlogPosts/DeleteComments
+        [Authorize(Roles = "Admin, Moderator")]
+        public ActionResult DeleteComments(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Comment comment = db.Comments.Find(id);
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(comment);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Moderator")]
+        public ActionResult DeleteComments(int id)
+        {
+            Comment comment = db.Comments.Find(id);
+            var slug = comment.Post.Slug;
+            db.Comments.Remove(comment);
+            db.SaveChanges();
+
+
+            return RedirectToAction("Details", "BlogPosts", new { slug = slug }); //need to send in a SLUG
+
+        }
 
         protected override void Dispose(bool disposing)
         {

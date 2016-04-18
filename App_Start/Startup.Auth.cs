@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
+using Owin.Security.Providers.LinkedIn;
 using Owin;
 using Blog_jcf.Models;
 
@@ -57,6 +58,10 @@ namespace Blog_jcf
             app.UseFacebookAuthentication(
                appId: "1181062458572475",
                appSecret: "aba0cb3499e92319e52a8787e11ff0ef");
+
+            app.UseLinkedInAuthentication(
+                clientId: "77zcm29a2xwlt0",
+                clientSecret: "QnTnJA3aPbFIGbCJ");
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {

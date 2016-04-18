@@ -15,7 +15,7 @@ namespace Blog_jcf.Models
         }
     
 
-    public int Id { get; set; }
+        public int Id { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset? Updated { get; set; }
         [Required]

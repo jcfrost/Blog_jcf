@@ -5,19 +5,17 @@
 
 <h2>Thank you for submitting your contact information</h2>*@
 
-<section id="thankYou">
+<section id="thankYou" style="background-image: url('../../Content/beach_2.jpg')">
 
     <div class="container">
 
-        <h1 class="section-title scrollimation scale-in" style="margin-top:45px">Thank you for contacting me!</h1>
+        <h1 class="section-title scrollimation scale-in" style="margin-top:45px">Thank you for <span>contacting</span> me!</h1>
 
-        <div class="row">
+        <div class="col-sm-5 contact-info scrollimation fade-right">
 
-            <div class="col-sm-5 contact-info scrollimation fade-right">
+                <p style="padding:10px;color:#ff4500">I have a Bachelor's degree in Computer Engineering from Clemson University and a Master's degree in Industrial Technology from North Carolina A&T State University. After a many years as a manufacturing engineer and then as a technical sales engineer, I am rebranding myself for a new career as a software developer.</p><!--added "style=..."-->
 
-                <p style="padding:10px">I have a Bachelor's degree in Computer Engineering from Clemson University and a Master's degree in Industrial Technology from North Carolina A&T State University. After a many years as a manufacturing engineer and then as a technical sales engineer, I am rebranding myself for a new career as a software developer.</p><!--added "style=..."-->
-
-                <address style="padding:10px">
+                <address style="padding:10px;color:#ff4500">
                     <!--added "style=..."-->
                     James Frost<br>
                     <!--street address-->
@@ -38,8 +36,8 @@
             <!--=== Contact Form ===-->
             @*<form id="contact-form" class="col-sm-7 scrollimation fade-left" action="contact.php" method="post" novalidate>*@
             <div class="col-sm-7 scrollimation fade-left">
-                @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
-            {
+                @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { id = "contact-form" }))
+                {
                     @Html.AntiForgeryToken()
                     <div class="form-group">
                         <label class="control-label" for="contact-name">Name</label>
